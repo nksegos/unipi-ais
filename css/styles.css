@@ -1,0 +1,27 @@
+.bk.custom {
+    border-radius: 0.5em;
+    padding: 1em;
+}
+.bk.about {
+    font-size: 10px;
+    /* text-align: end; */
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+/* .bk-root .slick-cell.selected {
+    background-color: #F0F8FF;
+}*/
+.bk-root .slick-cell.selected {
+    background-color: #a4d4ff;
+}
+
+div.bk-tooltip.bk-right>div.bk>div:not(:first-child) {
+    display:none !important;
+}
+
+div.bk-tooltip.bk-left>div.bk>div:not(:first-child) {
+    display:none !important;
+}
+

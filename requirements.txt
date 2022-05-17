@@ -1,0 +1,9 @@
+bokeh==2.3.0
+pandas==1.0.5
+numpy==1.18.5
+psycopg2==2.8.5
+geopandas==0.8.0
+requests==2.24.0
+beautifulsoup4==4.9.3
+express==1.0
+tqdm==4.43.0
