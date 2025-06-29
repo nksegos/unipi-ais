@@ -6,12 +6,9 @@
 """
 
 
-import urllib
 import time
 from datetime import datetime, timezone, timedelta
-import numpy as np
 import pandas as pd
-import geopandas as gpd
 import threading
 
 import bokeh

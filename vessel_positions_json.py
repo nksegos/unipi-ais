@@ -1,16 +1,14 @@
 from datetime import datetime, timezone
-import urllib
-import numpy as np
-import pandas as pd
-import psycopg2
 import sys, os
 import configparser
 import time
 import json
+
 from redis import Redis, ConnectionError
 from confluent_kafka import Consumer, KafkaException, KafkaError
 from pyproj import Transformer
 from threading import Lock, Event
+
 from bokeh.models import ColumnDataSource
 from bokeh.document import Document
 # import logging
