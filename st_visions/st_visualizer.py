@@ -1,7 +1,7 @@
 '''
-	st_visualizer.py - v2020.05.12
+    st_visualizer.py - v2020.05.12
 
-	Authors: Andreas Tritsarolis, Christos Doulkeridis
+    Authors: Andreas Tritsarolis, Christos Doulkeridis
 '''
 
 
@@ -234,7 +234,7 @@ class st_visualizer:
         self.__suffix = suffix
 
 
-    def create_canvas(self, title, x_range=None, y_range=None, suffix='_merc', **kwargs):        
+    def create_canvas(self, title, x_range=None, y_range=None, suffix='_merc', using_dataframes=True, **kwargs):        
         """
         Create the instance's Canvas and CDS.
 
@@ -251,17 +251,21 @@ class st_visualizer:
         **kwargs: Dict
             Other arguments related to creating the instance's Canvas (consult bokeh.plotting.figure method)
         """
-        if self.data is None:
-            raise ValueError('You must set a DataFrame first.')
+        if using_dataframes:
+            if self.data is None:
+                raise ValueError('You must set a DataFrame first.')
         
-        if self.limit < len(self.data):
-            title = f'{title} - Showing {self.limit} out of {len(self.data)} records'
+            if self.limit < len(self.data):
+                title = f'{title} - Showing {self.limit} out of {len(self.data)} records'
 
-        bbox = self.data.total_bounds
-        if x_range is None:
-            x_range=(np.floor(bbox[0]), np.ceil(bbox[2]))
-        if y_range is None:
-            y_range=(np.floor(bbox[1]), np.ceil(bbox[3]))
+            bbox = self.data.total_bounds
+            if x_range is None:
+                x_range=(np.floor(bbox[0]), np.ceil(bbox[2]))
+            if y_range is None:
+                y_range=(np.floor(bbox[1]), np.ceil(bbox[3]))
+        else:
+            if None in (x_range, y_range):
+                raise ValueError('x_range and y_range must be set')
 
         fig = figure(x_range=x_range, y_range=y_range, x_axis_type="mercator", y_axis_type="mercator", title=title, **kwargs)
         
@@ -269,6 +273,8 @@ class st_visualizer:
         
         if self.source is None:
             self.create_source(suffix)
+        else:
+            self.__suffix = suffix
            
 
     def add_categorical_colormap(self, palette, categorical_name, **kwargs):
@@ -752,3 +758,4 @@ class st_visualizer:
             show(bokeh_app, notebook_url=notebook_url)
         else:
             bokeh_app(bokeh_io.curdoc() if doc is None else doc)
+
