@@ -52,7 +52,7 @@ def load_from_cache(source: ColumnDataSource, record_index: dict, index_lock: Lo
                     f'{sp_cols["y"]}': [data.get('latitude')],
                     'moving': [data.get('moving')],
                     'heading': [data.get('heading', "0")],
-                    'vessel_name': [data.get('vessel_name', '')],
+                    'vessel_name': [data.get('vessel_name', data.get('shipname', ''))],
                     'vessel_type': [data.get('vessel_type', code_mappings.get(data.get('shiptype', ''), '').split(',')[0])], 
                     'TRCMP': [-float(data.get('heading', 0))],
                     'DSCMP': [270 - float(data.get('heading', 0))],
@@ -80,7 +80,7 @@ def on_record_arrival(record: dict, source: ColumnDataSource, record_index: dict
         lon_merc, lat_merc = coord_transformer.transform(lon, lat)
     else:
         vessel_type = code_mappings.get(str(record.get('shiptype', '')), '').split(',')[0]
-        vessel_name = record.get('vessel_name', '')
+        vessel_name = record.get('shipname', '')
 
     def update_source():
         with index_lock:
