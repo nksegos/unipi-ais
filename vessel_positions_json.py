@@ -136,7 +136,7 @@ def data_thread(thread_stop: Event, source: ColumnDataSource, record_index: dict
         broker_reply = consumer.list_topics(timeout=5)
         for topic in settings['kafka_topics'].split(','):
             if topic not in broker_reply.topics:
-                err = KafkaError(KafkaError._UNKNOWN_TOPIC_OR_PART, f"Topic not found or unavailable: {topic}")
+                err = KafkaError(KafkaError.UNKNOWN_TOPIC_OR_PART, f"Topic not found or unavailable: {topic}")
                 raise KafkaException(err)   
     except KafkaException as e:
         print(f'Broker connection failed: {e}. Check config. Exiting...')
